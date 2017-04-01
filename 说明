@@ -1,0 +1,58 @@
+
+
+
+http://127.0.0.1:8080/jcFootball/jc/JCFootballResult
+http://127.0.0.1:8080/jcFootball/jc/JCFootball
+
+HtmlUnit，http://htmlunit.sourceforge.net/
+
+
+
+问题2、log4j配置问题，导致不能控制台不能输出信息，包括异常，所以不知道什么原因不能访问
+  log4j.rootLogger=DEBUG,INFO, STDOUT, debugout, R, R2
+  log4j.logger.org=DEBUG,INFO
+   第一个配置项log4j.rootLogger去掉了【DEBUG,INFO】这两个导致，经过测试至少需要一个
+ 
+  
+
+问题1、jdk版本与Spring版本的问题
+      目前Spring3.2.1版本只能使用jdk1.7或以下，不能使用jdk1.8
+  jdk1.8支持Spring4.x，否则就会出现异常：
+  Caused by: org.springframework.core.NestedIOException: ASM ClassReader failed to parse class file - probably due to a new Java class file version that isn't supported yet: file [F:\dev_workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\test-zk-Curator\WEB-INF\classes\cn\bg\controller\MainController.class]; nested exception is java.lang.IllegalArgumentException
+  java.lang.IllegalArgumentException
+  org.springframework.asm.ClassReader.<init>(Unknown Source)
+   解决办法更换jdk1.7版本 或 将Spring版本升级为4.x
+
+
+
+ 
+
+将 jc258中足彩数据同步到自己的数据库
+：http://zq.jc258.cn
+
+
+关于竞猜258网页数据说明
+
+竞猜列表页面【http://zq.jc258.cn】：
+	1、竞猜数据table html代码如下：
+		 <table id="match_list" class="list match_list_table scrollTable">
+		1.2、不让球tr行html代码：<tr id="tr_425490" theIndex="999" gn="4052" gameno="4052" class="odds odd_tr_0" 
+							gameDate = "2015-02-26_052" 
+	                        gnum="score_datr_2015-02-26" gtr="score_datr_2015-02-26" 
+	                        status="2" timenum="201502262355" name="sfpnon" data-gamecode='64003' 
+	                        data-gameid="425490" data-isturn="0"
+	                        >
+	     	竞猜数据唯一标识id，如：【gn="4052" gameno="4052" data-gameid="425490"  data-gamecode='64003' 】
+		1.3、让球tr行html代码：<tr id="tr_425502" gnum="score_datr_2015-02-26" theIndex="999" gn="4052" name="sfp"  
+						 class="odds odd_tr_0" data-gamecode='64003' data-gameid="425490" 
+						 style="display: none;">
+			竞猜赛果是根据 让球唯一标识id进行对应 ，如：【id="tr_425502"  】
+		1.4、
+	2、竞猜赛果数据table html代码如下：
+		<table border="0" cellspacing="0" cellpadding="0" class="sgexcle" id="tab_result">
+		2.1、竞猜赛果数据行
+				<tr onmouseover="this.style.background='#d2eafa'" onmouseout="this.style.background='none'" 
+				gameid="425918"  gamenum="4071" gamedate="20150226" >
+			gameid="425918" 对应竞猜列表数据 让球数据行id 如：【id="tr_425502"  】
+			gamenum="4071"  对应竞猜列表数据    gn | gameno ， 如：【gn="4052" gameno="4052"】
+				

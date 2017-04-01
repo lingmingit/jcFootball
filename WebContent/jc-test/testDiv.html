@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>测试div</title>
+	<style>
+		#previewDiv{z-index: 9999;position:absolute;display:none;background:#fff;border-top:5px solid #999;border-bottom:7px solid #999;border-left:5px solid #999;border-right:7px solid #999;}
+		.mask {color:#C7EDCC;background-color:#999;position:absolute;top:0px;left:0px;width:100%;height:3000px;opacity: 0.6;filter: "alpha(opacity=60)";filter: alpha(Opacity=60);}
+	
+	</style>
+	 <script type="text/javascript" src="../js/base/jquery-1.8.2.js"></script>
+	 <script type="text/javascript">
+	 
+	 function show(){ 
+	       //添加并显示遮罩层  
+	     // $("<div id='mask'></div>").addClass("mask").click(function() {}) .appendTo("body").fadeIn(0);    
+	      //  document.getElementById("mask").style.display = "block";
+	    
+	        var windowWidth = document.documentElement.clientWidth;  
+	        var windowHeight = document.documentElement.clientHeight;  
+	        var popupHeight = $("#previewDiv").height();  
+	        var popupWidth = $("#previewDiv").width();   
+	        $("#previewDiv").css({  
+	            "position": "absolute",  
+	            "top": (windowHeight-popupHeight)/2+$(document).scrollTop(),  
+	            "left": (windowWidth-popupWidth)/2
+	        });
+	       $("#previewDiv").show();
+	    }
+
+	 
+	    function hide(){
+	        $("#mask").remove();
+	        $("#previewDiv").hide();
+	    }
+	 </script>
+</head>
+<body>
+	<input type="button" id="open" onclick="show();" value="显示">
+	<input type="button" id="close" onclick="hide();" value="关闭">
+	
+	    <div id="previewDiv">  
+        <table id ="head">  
+            <tr><td>短消息预览</td></tr>  
+        </table>   
+        <table align="center">  
+           <tr><td>  
+               <div class="zhnx_neirong">  
+                    <h3>您收到了来自花花的回复</h3>  
+                    <p class="duanluo">    内容：这是浮动层居中的实例</span></p>  
+               </div>  
+               <div class="zhnx_huifu"><p><a href="javascript:open('${mailboxBO.mailfrom}');">查看花花的名片</a></p></div>  
+           </td></tr>  
+        </table>  
+        <table align="center">  
+            <tr><td><div><input type="button" value=" 关 闭 " onclick="hide();"/></div></td></tr>  
+        </table>  
+    </div>  
+</body>
+</html>
